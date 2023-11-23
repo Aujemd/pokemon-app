@@ -8,10 +8,10 @@ export const PokemonList = () => {
   const { pokemonList } = useSelector(commonSelector)
 
   return (
-    <section className=' w-3/4 flex flex-wrap gap-4 justify-center'>
+    <div className='flex flex-wrap gap-4 justify-center mt-32'>
       {pokemonList?.map(({ name, url }: Result) => (
         <PokemonCard key={`pokemon-card-${name}`} name={name} url={url} />
       ))}
-    </section>
+    </div>
   )
 }

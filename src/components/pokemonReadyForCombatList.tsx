@@ -3,7 +3,7 @@ import { usePokemonReadyForCombatList } from '../hooks/usePokemonReadyForCombatL
 import { Result } from '../types/types'
 import { PokemonReadyForCombarCard } from './pokemonReadyForCombarCard'
 
-export const PokemonReadytForCombatList = () => {
+export const PokemonReadyForCombatList = () => {
   const { pokemonReadyForCombatList } = usePokemonReadyForCombatList()
 
   return (
@@ -12,7 +12,7 @@ export const PokemonReadytForCombatList = () => {
         <p className='text-center w-full'>Lista vacía, no hay ningún pokemón listo</p>
       ) : (
         pokemonReadyForCombatList?.map(({ name, url }: Result) => (
-          <PokemonReadyForCombarCard name={name} url={url} />
+          <PokemonReadyForCombarCard key={`pokemon-combat-card-${name}`} name={name} url={url} />
         ))
       )}
     </section>

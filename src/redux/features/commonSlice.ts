@@ -3,7 +3,8 @@ import { CommonState } from './types'
 
 export const initialState: CommonState = {
   pokemonList: [],
-  pokemonReadyForCombat: []
+  pokemonReadyForCombat: [],
+  pokemonQuery: ''
 }
 
 const commonSlice = createSlice({
@@ -26,11 +27,19 @@ const commonSlice = createSlice({
       state.pokemonReadyForCombat = state.pokemonReadyForCombat?.filter(
         (pokemon) => pokemon !== payload
       )
+    },
+    setPokemonQuery(state, { payload }: PayloadAction<string>) {
+      state.pokemonQuery = payload
     }
   }
 })
 
-export const { setPokemonList, addPokemonReadyForCombat, removePokemonReadyForCombat } = commonSlice.actions
+export const {
+  setPokemonList,
+  addPokemonReadyForCombat,
+  removePokemonReadyForCombat,
+  setPokemonQuery
+} = commonSlice.actions
 
 export default commonSlice.reducer
 

@@ -1,8 +1,21 @@
+import { useSelector } from 'react-redux'
 import { usePokemonData } from '../hooks/usePokemonData'
 import { Result } from '../types/types'
-
+import { commonSelector } from '../redux/features/commonSlice'
+import { useMemo } from 'react'
 export const PokemonCard = ({ name = '', url = '' }: Result) => {
   const { data, addPokemonReadyForCombat } = usePokemonData(url)
+  const { pokemonQuery } = useSelector(commonSelector)
+
+
+  const showCard = useMemo(
+    () => name.includes(pokemonQuery || '') || parseInt(pokemonQuery || '') === data?.id,
+    [data?.id, name, pokemonQuery]
+  )
+
+  if (pokemonQuery !== '' && !showCard) {
+    return null
+  }
 
   return (
     <article className=' bg-gray-100 w-1/5 rounded-md p-4  transition-all hover:scale-105 hover:shadow-lg relative'>

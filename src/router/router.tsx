@@ -6,7 +6,7 @@ export const router = createBrowserRouter([
   {
     element: (
       <>
-        <div className='flex  flex-nowrap'>
+        <div className='flex flex-nowrap'>
           <Outlet />
           <PokemonReadyForCombat />
         </div>
