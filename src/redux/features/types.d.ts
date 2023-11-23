@@ -3,4 +3,5 @@ export type AppDispatch = typeof store.dispatch
 
 export type CommonState = {
   pokemonList?: Array<Result>
+  pokemonReadyForCombat?: Array<string>
 }

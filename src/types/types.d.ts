@@ -20,6 +20,7 @@ export type PokemonResponse = {
 }
 
 export type Sprites = {
+  'front_default'?: string
   other?: Other
 }
 

@@ -1,13 +1,15 @@
 import React from 'react'
-import { Result } from '../lib/types'
+import { Result } from '../types/types'
 import { PokemonCard } from './pokemonCard'
 import { useSelector } from 'react-redux'
+import { commonSelector } from '../redux/features/commonSlice'
+
 export const PokemonList = () => {
-  const results = useSelector((state: any) => state.common.pokemonList)
+  const { pokemonList } = useSelector(commonSelector)
 
   return (
-    <section className='flex flex-wrap gap-4  justify-center  w-full'>
-      {results?.map(({ name, url }: Result) => (
+    <section className=' w-3/4 flex flex-wrap gap-4 justify-center'>
+      {pokemonList?.map(({ name, url }: Result) => (
         <PokemonCard key={`pokemon-card-${name}`} name={name} url={url} />
       ))}
     </section>

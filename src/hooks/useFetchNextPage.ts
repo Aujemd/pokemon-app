@@ -1,6 +1,6 @@
 import { FetchNextPageOptions, InfiniteQueryObserverResult } from 'react-query'
 import { useEffect } from 'react'
-import { PokemonListResponse } from '../lib/types'
+import { PokemonListResponse } from '../types/types'
 
 export const useFetchNextPage = (
   hasNextPage: boolean | undefined,
