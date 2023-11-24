@@ -16,8 +16,8 @@ export const PokemonReadyForCombarCard = ({ name = '', url = '' }: Result) => {
       <picture>
         <img
           src={data?.sprites?.front_default}
-          alt='pokemon-ready-for-combat'
-          className=' animate-bounce '
+          alt='pokemon-ready-for-combat-pic'
+          className='animate-bounce '
         />
       </picture>
       <p className=' text-[10px] font-bold  capitalize'>{name}</p>
