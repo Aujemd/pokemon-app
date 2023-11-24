@@ -1,18 +1,20 @@
 import React from 'react'
-import { usePokemonReadyForCombatList } from '../hooks/usePokemonReadyForCombatList'
 import { Result } from '../types/types'
-import { PokemonReadyForCombarCard } from './pokemonReadyForCombarCard'
+import { PokemonReadyForCombatCard } from './pokemonReadyForCombatCard'
+import { commonSelector } from '../redux/features/commonSlice'
+import { useSelector } from 'react-redux'
 
 export const PokemonReadyForCombatList = () => {
-  const { pokemonReadyForCombatList } = usePokemonReadyForCombatList()
+  const { pokemonReadyForCombatList } = useSelector(commonSelector)
 
   return (
-    <section className=' flex flex-wrap justify-center pt-9'>
+    <section className=' flex flex-wrap pt-9  justify-center'>
       {pokemonReadyForCombatList?.length === 0 ? (
         <p className='text-center w-full'>Lista vacía, no hay ningún pokemón listo</p>
       ) : (
+        pokemonReadyForCombatList &&
         pokemonReadyForCombatList?.map(({ name, url }: Result) => (
-          <PokemonReadyForCombarCard key={`pokemon-combat-card-${name}`} name={name} url={url} />
+          <PokemonReadyForCombatCard key={`pokemon-combat-card-${name}`} name={name} url={url} />
         ))
       )}
     </section>

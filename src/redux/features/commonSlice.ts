@@ -1,9 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { CommonState } from './types'
+import { Result } from '../../types/types'
 
 export const initialState: CommonState = {
   pokemonList: [],
-  pokemonReadyForCombat: [],
+  pokemonReadyForCombatList: [],
   pokemonQuery: ''
 }
 
@@ -14,18 +15,18 @@ const commonSlice = createSlice({
     setPokemonList(state, { payload }: PayloadAction<CommonState['pokemonList']>) {
       state.pokemonList = payload
     },
-    addPokemonReadyForCombat(state, { payload }: PayloadAction<string>) {
+    addPokemonReadyForCombat(state, { payload }: PayloadAction<Result>) {
       if (
-        !state.pokemonReadyForCombat?.includes(payload) &&
-        state.pokemonReadyForCombat &&
-        state.pokemonReadyForCombat?.length < 6
+        !state.pokemonReadyForCombatList?.find(({ name }: Result) => name === payload.name) &&
+        state.pokemonReadyForCombatList &&
+        state.pokemonReadyForCombatList?.length < 6
       ) {
-        state.pokemonReadyForCombat?.push(payload)
+        state.pokemonReadyForCombatList?.push(payload)
       }
     },
-    removePokemonReadyForCombat(state, { payload }: PayloadAction<string>) {
-      state.pokemonReadyForCombat = state.pokemonReadyForCombat?.filter(
-        (pokemon) => pokemon !== payload
+    removePokemonReadyForCombat(state, { payload }: PayloadAction<Result>) {
+      state.pokemonReadyForCombatList = state.pokemonReadyForCombatList?.filter(
+        ({ name }: Result) => name !== payload.name
       )
     },
     setPokemonQuery(state, { payload }: PayloadAction<string>) {

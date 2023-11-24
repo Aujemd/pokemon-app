@@ -5,18 +5,21 @@ import {
   addPokemonReadyForCombat as addPokemonReadyForCombatAction,
   removePokemonReadyForCombat as removePokemoReadyForCombatAction
 } from '../redux/features/commonSlice'
+import { Result } from '../types/types'
 
 export const usePokemonData = (url: string) => {
-  const { data } = useQuery(['pokemonData', url], () => fetchPokemon(url))
+  const { data, isLoading } = useQuery(['pokemonData', url], () => fetchPokemon(url))
 
   const dispatch = useDispatch()
 
-  const addPokemonReadyForCombat = (name: string) => {
-    dispatch(addPokemonReadyForCombatAction(name))
+  const addPokemonReadyForCombat = (pokemon?: Result) => {
+    if (!pokemon) return
+    dispatch(addPokemonReadyForCombatAction(pokemon))
   }
 
-  const removePokemonReadyForCombat = (name: string) => {
-    dispatch(removePokemoReadyForCombatAction(name))
+  const removePokemonReadyForCombat = (pokemon?: Result) => {
+    if (!pokemon) return
+    dispatch(removePokemoReadyForCombatAction(pokemon))
   }
-  return { data, addPokemonReadyForCombat, removePokemonReadyForCombat }
+  return { data, addPokemonReadyForCombat, removePokemonReadyForCombat, isLoading }
 }

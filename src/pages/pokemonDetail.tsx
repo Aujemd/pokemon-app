@@ -1,23 +1,33 @@
 import { Link, useLocation } from 'react-router-dom'
 import { usePokemonData } from '../hooks/usePokemonData'
-import { Stat, Type } from '../types/types'
+import { Result, Stat, Type } from '../types/types'
 import { commonSelector } from '../redux/features/commonSlice'
 import { useSelector } from 'react-redux'
 import { useMemo } from 'react'
+import { Loader } from '../components/loader'
 
 export const PokemonDetail = () => {
   let {
     state: { url }
   } = useLocation()
 
-  const { data, addPokemonReadyForCombat, removePokemonReadyForCombat } = usePokemonData(url)
+  const { data, isLoading, addPokemonReadyForCombat, removePokemonReadyForCombat } =
+    usePokemonData(url)
 
-  const { pokemonReadyForCombat } = useSelector(commonSelector)
+  const { pokemonReadyForCombatList } = useSelector(commonSelector)
 
   const isOnList = useMemo(
-    () => pokemonReadyForCombat?.find((pokemonName) => pokemonName === data?.name),
-    [data?.name, pokemonReadyForCombat]
+    () => pokemonReadyForCombatList?.find(({ name }: Result) => name === data?.name),
+    [data?.name, pokemonReadyForCombatList]
   )
+
+  if (isLoading) {
+    return (
+      <div className=' w-3/4 flex justify-center items-center h-screen'>
+        <Loader />
+      </div>
+    )
+  }
 
   return (
     <section className='w-3/4 flex justify-around items-start  mt-10'>
@@ -41,7 +51,7 @@ export const PokemonDetail = () => {
             <div className=' flex'>
               <p className=' mr-1'>Types:</p>
               {data?.types?.map((type: Type) => (
-                <p key={type.type?.name} className='capitalize'>
+                <p key={type.type?.name} className='capitalize mr-1'>
                   {type.type?.name}
                 </p>
               ))}
@@ -59,8 +69,8 @@ export const PokemonDetail = () => {
         className={`${isOnList ? 'bg-red-500' : 'bg-teal-700'} text-white py-1 px-3 rounded-md`}
         onClick={() =>
           isOnList
-            ? removePokemonReadyForCombat(data?.name || '')
-            : addPokemonReadyForCombat(data?.name || '')
+            ? removePokemonReadyForCombat({ url, name: data?.name })
+            : addPokemonReadyForCombat({ url, name: data?.name })
         }
       >
         {isOnList ? '🗑️ Remover' : '+ Agregar'}
