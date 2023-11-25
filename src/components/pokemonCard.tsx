@@ -20,7 +20,7 @@ export const PokemonCard = ({ name = '', url = '' }: Result) => {
   }
 
   if (isLoading) {
-    return <article className=' bg-gray-300 w-1/5 rounded-md '></article>
+    return <article className=' bg-gray-300 w-1/5 rounded-md'></article>
   }
 
   return (
